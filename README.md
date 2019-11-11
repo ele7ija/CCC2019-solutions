@@ -2,4 +2,4 @@
 > Level description, input files and code for every level can be found in the adequate folder
 
 ### External links:
-	[Catalyst Code Challenge](https://register.codingcontest.org/)
+[Catalyst Code Challenge](https://register.codingcontest.org/)
