@@ -1,5 +1,5 @@
 # Generic/Built-in Libs
-import sys, getopt
+import sys, getopt, os
 from collections import namedtuple
 import matplotlib.pyplot as plt
 import numpy as np
@@ -84,7 +84,9 @@ def _visualize(i, r, visited_cells):
     ax.legend()
     plt.title('input: \'' + INPUT_F + '\'\n' + \
         ' RAY: {}, O: {}, D: {}'.format(i, r.o, r.d))
-    plt.savefig(INPUT_F + '_RAY{}.png'.format(i))
+    if not os.path.exists('./viz'):
+        os.mkdir('./viz')
+    plt.savefig('./viz/' + INPUT_F + '_RAY{}.png'.format(i))
 
 
 def solution(i_content):
