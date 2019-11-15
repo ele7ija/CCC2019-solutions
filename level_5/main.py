@@ -78,6 +78,32 @@ def _parse_matrix(icparsed):
         matrix.append(column)
     return matrix 
 
+
+def _visualize(capitals, neighbours):
+    fig, ax = plt.subplots()
+    ax.grid(which='major', axis='both')
+    plt.xlim(0, ROWS-1)
+    plt.ylim(0, COLS-1)
+
+    plotted = set()
+    for capital in capitals:
+        plt.scatter(capital.x, capital.y, color='r')
+        plt.text(capital.x, capital.y, "Country:" + str(capital.country))
+        for neighbour in neighbours[capital.country]:
+            n_capital = capitals[neighbour]
+            # plot again
+            plt.plot([capital.x, n_capital.x], [capital.y, n_capital.y], color='b')
+            # plot distance
+            x_avg, y_avg = (capital.x + n_capital.x) / 2, (capital.y + n_capital.y) / 2 
+            plt.text(x_avg, y_avg, euclidean_distance(capital.x, capital.y, n_capital.x, n_capital.y))
+            plotted.add(neighbour)
+    plt.title('input: \'' + INPUT_F + '\'')
+
+    if not os.path.exists('./viz'):
+        os.mkdir('./viz')
+    plt.savefig('./viz/' + INPUT_F + '.png')
+
+
 def solution(i_content):
     global ROWS, COLS, K
 
@@ -93,6 +119,7 @@ def solution(i_content):
     capitals, country_cells = matrix.find_capitals()
     neighbours = matrix.find_neighbours(capitals, country_cells)
 
+    viz_distances = []
     o_content_raw = []
     for country_id, capital in enumerate(capitals):
         country_solars = []
@@ -107,8 +134,10 @@ def solution(i_content):
             country_solars.append(cost)
 
         o_content_raw.append(country_solars)
+        viz_distances.append(md)
+
+    _visualize(capitals, neighbours)
         
-    
     return o_content_raw
 
 

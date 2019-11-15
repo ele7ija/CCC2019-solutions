@@ -144,7 +144,7 @@ class Matrix:
         return neighbours
 
 
-def _euclidean_distance(x1, y1, x2, y2):
+def euclidean_distance(x1, y1, x2, y2):
     return int(sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2))
 
 
@@ -181,7 +181,7 @@ def min_distance(country_id, capitals, neighbours):
                 # print("Capital: " + str(capitals[n_country]) + " already visited")
                 continue
 
-            e_d = _euclidean_distance(c.x, c.y, n_capital.x, n_capital.y)
+            e_d = euclidean_distance(c.x, c.y, n_capital.x, n_capital.y)
             new_dist = capitals_dist[c] + e_d
             # print("Distance between capitals: {} and {} is: {}".format(c, n_capital, new_dist))
             if new_dist < capitals_dist[n_capital]:
